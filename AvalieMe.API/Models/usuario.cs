@@ -9,7 +9,7 @@ namespace AvalieMe.API.Models
     [Table("avalieme.usuario")]
     public partial class usuario
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long id { get; set; }
 
         [Required]

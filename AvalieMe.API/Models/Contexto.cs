@@ -1,18 +1,20 @@
+using System.Data.Entity;
+
 namespace AvalieMe.API.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class Contexto : DbContext
     {
         public Contexto()
             : base("name=Contexto")
         {
+            Database.SetInitializer<Contexto>(null);
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Database.CommandTimeout = 300;
         }
 
         public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<teste> teste { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,6 +28,18 @@ namespace AvalieMe.API.Models
 
             modelBuilder.Entity<usuario>()
                 .Property(e => e.email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<teste>()
+                .Property(e => e.nomeImagem)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<teste>()
+                .Property(e => e.categoria)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<teste>()
+                .Property(e => e.posicaoPessoa)
                 .IsUnicode(false);
         }
     }
